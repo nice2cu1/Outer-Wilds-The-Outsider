@@ -118,18 +118,19 @@ namespace TheOutsider.OuterWildsHandling
             {
                 if (!__0.Contains("_"))
                 {
-                    __0 = __0.Replace("Eye", "<color=lightblue>Eye</color>");
+                    __0 = __0.Replace("宇宙之眼", "<color=lightblue>宇宙之眼</color>");
+                    __0 = __0.Replace("眼", "<color=lightblue>眼</color>");
 
-                    __0 = __0.Replace("Brittle Hollow", "<color=lightblue>Brittle Hollow</color>");
-                    __0 = __0.Replace("Ember Twin", "<color=lightblue>Ember Twin</color>");
+                    __0 = __0.Replace("碎空星", "<color=lightblue>碎空星</color>");
+                    __0 = __0.Replace("余烬双星", "<color=lightblue>余烬双星</color>");
 
-                    __0 = __0.Replace("Dark Bramble", "<color=lightblue>Dark Bramble</color>");
-                    __0 = __0.Replace("Vessel", "<color=lightblue>Vessel</color>");
+                    __0 = __0.Replace("黑棘星", "<color=lightblue>黑棘星</color>");
+                    __0 = __0.Replace("母舰", "<color=lightblue>母舰</color>");
 
-                    __0 = __0.Replace("DATURA", "<color=lightblue>DATURA</color>");
+                    __0 = __0.Replace("曼陀罗", "<color=lightblue>曼陀罗</color>");
                     __0 = __0.Replace("Datura", "<color=lightblue>Datura</color>");
-                    __0 = __0.Replace("FRIEND", "<color=lime>FRIEND</color>");
-                    __0 = __0.Replace("Friend", "<color=lime>Friend</color>");
+                    __0 = __0.Replace("朋友：", "<color=lime>朋友：</color>");
+                    __0 = __0.Replace("“朋友”", "<color=lime>朋友</color>");
 
                     //__0 = __0.Replace("#####", "[<color=red>#####</color>]");
 
@@ -176,20 +177,68 @@ namespace TheOutsider.OuterWildsHandling
                 //Find where lower case next to upper case, remove before.
 
                 string detail = __0; 
-                for (int i = 0; i < detail.Length - 1; i++)
+                // 塔顶，密室，壁画
+                // 研究塔
+                // 荆棘小屋，隐藏道路，航天飞机，投影池室，建筑内部，宇宙之眼
+                // 北部天文台，收集者壁画，最初的营地，荆棘动力站，南极庇护所
+                // 封锁住的入口，飞船摧毁装置，悬崖边的建筑，与世隔绝的建筑
+                // 鮟鱇鱼狩猎小屋
+
+                if(detail.Length > 2)
                 {
-                    var c1 = detail[i].ToString();
-                    var c2 = detail[i + 1].ToString();
-
-                    bool isLowercase = c1 == c1.ToLower() && !string.IsNullOrWhiteSpace(c1);
-                    bool nextIsUppercase = c2 == c2.ToUpper() && !string.IsNullOrWhiteSpace(c2);
-
-                    if (isLowercase && nextIsUppercase)
+                    var temp2 = detail.Substring(0, 2);
+                    if (temp2.Equals("塔顶") || temp2.Equals("密室") || temp2.Equals("壁画") )
                     {
-                        detail = detail.Remove(0, i + 1);
-                        break;
+                        detail = detail.Remove(0, 2);
                     }
                 }
+                if(detail.Length > 3)
+                {
+                    var temp3 = detail.Substring(0, 3);
+                    if (temp3.Equals("研究塔"))
+                    {
+                        detail = detail.Remove(0, 3);
+                    }
+                }
+                
+                if(detail.Length > 4)
+                {
+                    var temp4 = detail.Substring(0, 4);
+                    if (temp4.Equals("荆棘小屋") || temp4.Equals("隐藏道路") || temp4.Equals("航天飞机") || temp4.Equals("投影池室") ||
+                        temp4.Equals("建筑内部") || temp4.Equals("宇宙之眼"))
+                    {
+                        detail = detail.Remove(0, 4);
+                    }
+                }
+                
+                if(detail.Length > 5)
+                {
+                    var temp5 = detail.Substring(0, 5);
+                    if (temp5.Equals("北部天文台") || temp5.Equals("收集者壁画") || temp5.Equals("最初的营地") || temp5.Equals("荆棘动力站") ||
+                        temp5.Equals("南极庇护所"))
+                    {
+                        detail = detail.Remove(0, 5);
+                    }
+                }
+                
+                if(detail.Length > 6)
+                {
+                    var temp6 = detail.Substring(0, 6);
+                    if (temp6.Equals("封锁住的入口") || temp6.Equals("飞船摧毁装置") || temp6.Equals("悬崖边的建筑"))
+                    {
+                        detail = detail.Remove(0, 6);
+                    }
+                }
+                
+                if(detail.Length > 7)
+                {
+                    var temp7 = detail.Substring(0, 7);
+                    if (temp7.Equals("与世隔绝的建筑") || temp7.Equals("鮟鱇鱼狩猎小屋"))
+                    {
+                        detail = detail.Remove(0, 7);
+                    }
+                }
+
 
                 __result = detail;
                 return false;
@@ -227,7 +276,7 @@ namespace TheOutsider.OuterWildsHandling
         {
             if (__instance._id == OutsiderConstants.LogPowerStation)
             {
-                __result = "Bramble Power Station";
+                __result = "荆棘动力站";
                 return false;
             }
             return true;
@@ -248,13 +297,13 @@ namespace TheOutsider.OuterWildsHandling
 
             //Replacing here replaces all base game instances too.
             string text = __instance.TranslatedText;
-            text = text.Replace("SOLANUM", "<color=orange>SOLANUM</color>");
+            text = text.Replace("所莱内姆", "<color=orange>所莱内姆</color>");
             text = text.Replace("Solanum", "<color=orange>Solanum</color>");
-            text = text.Replace("FILIX", "<color=cyan>FILIX</color>");
+            text = text.Replace("费利克斯", "<color=cyan>费利克斯</color>");
             text = text.Replace("Filix", "<color=cyan>Filix</color>");
-            text = text.Replace("BELLS", "<color=magenta>BELLS</color>");
+            text = text.Replace("贝尔斯", "<color=magenta>贝尔斯</color>");
             text = text.Replace("Bells", "<color=magenta>Bells</color>");
-            text = text.Replace("YARROW", "<color=yellow>YARROW</color>");
+            text = text.Replace("亚罗", "<color=yellow>亚罗</color>");
             text = text.Replace("Yarrow", "<color=yellow>Yarrow</color>");
 
             /*
@@ -704,17 +753,17 @@ namespace TheOutsider.OuterWildsHandling
         {
             if (InDream)
             {
-                string objName = "Disc";
+                string objName = "石";
                 switch (__instance._word)
                 {
-                    case NomaiWord.Identify:    __result = $"'Identify' {objName}";     break;
-                    case NomaiWord.QuantumMoon: __result = $"'Quantum Moon' {objName}"; break;
+                    case NomaiWord.Identify:    __result = $"'识别' {objName}";     break;
+                    case NomaiWord.QuantumMoon: __result = $"'量子卫星' {objName}"; break;
 
-                    case NomaiWord.Explain:     __result = $"'Explain' {objName}";      break;
-                    case NomaiWord.Eye:         __result = $"'Prisoner' {objName}";     break;
-                    case NomaiWord.You:         __result = $"'Friend' {objName}";       break;
-                    case NomaiWord.Me:          __result = $"'Me' {objName}";           break;
-                    case NomaiWord.TheNomai:    __result = $"'Datura' {objName}";       break;
+                    case NomaiWord.Explain:     __result = $"'说明' {objName}";      break;
+                    case NomaiWord.Eye:         __result = $"'幽禁者' {objName}";     break;
+                    case NomaiWord.You:         __result = $"'朋友' {objName}";       break;
+                    case NomaiWord.Me:          __result = $"'我' {objName}";           break;
+                    case NomaiWord.TheNomai:    __result = $"'曼陀罗' {objName}";       break;
                 }
                 return false;
             }
